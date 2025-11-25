@@ -192,4 +192,11 @@ Tell me which one to focus on next and I'll implement it or provide a detailed p
 
 ---
 
+## License & contribution policy ⚖️
+
+This project is released under the Apache License, Version 2.0. See `LICENSE` for full terms.
+
+Please note: the repository maintainers are *not accepting external contributions* to this repository. If you'd like to try changes or propose alternatives, please fork the repository and work in your own fork under the terms of the Apache 2.0 license.
+
+
 Thank you for the design notes — this README aims to centralize them and provide a clear path for prototyping and iteration.
