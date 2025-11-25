@@ -6,6 +6,8 @@ import (
 	"testing"
 )
 
+// TestWriteReadFrame verifies basic round-trip of WriteFrame and ReadFrame
+// for a simple payload and ensures frame type and payload are preserved.
 func TestWriteReadFrame(t *testing.T) {
 	b := bytes.NewBuffer(nil)
 	payload := []byte("hello world")
@@ -24,6 +26,9 @@ func TestWriteReadFrame(t *testing.T) {
 	}
 }
 
+// TestReadInvalidHeader ensures a non-TCP_LITE header (e.g. an HTTP
+// request) results in an InvalidFrameHeaderError so callers can detect and
+// handle the situation.
 func TestReadInvalidHeader(t *testing.T) {
 	// Simulate an HTTP client or other non-TCP_LITE client that sends ASCII data
 	raw := []byte("GET / HTTP/1.1\r\nHost: localhost\r\n\r\n")

@@ -10,6 +10,8 @@ import (
 	"github.com/anthony/gopher-pipe/internal/tcplite"
 )
 
+// TestServerEcho verifies the internal echo server properly decodes a
+// message frame and echoes it back to the client.
 func TestServerEcho(t *testing.T) {
 	addr := "127.0.0.1:9100"
 	// run server in a goroutine

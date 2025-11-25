@@ -30,6 +30,9 @@ func startLocalServer(t *testing.T) (addr string, stop func()) {
 	return ln.Addr().String(), func() { ln.Close(); <-stopped }
 }
 
+// TestEchoServerEndToEnd exercises the server end-to-end by starting a
+// temporary server, connecting, sending a message frame and verifying the
+// echo response matches the request.
 func TestEchoServerEndToEnd(t *testing.T) {
 	addr, stop := startLocalServer(t)
 	defer stop()

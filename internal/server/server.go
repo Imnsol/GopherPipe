@@ -1,3 +1,6 @@
+// Package server contains a tiny example echo server/handler used by the
+// command line examples (echoserver/echoclient). It shows how to use the
+// tcplite framing and the codec to decode/encode simple messages.
 package server
 
 import (
@@ -9,6 +12,10 @@ import (
 	"github.com/anthony/gopher-pipe/internal/tcplite"
 )
 
+// Serve listens on addr and serves a very small echo protocol over
+// tcplite frames. Each incoming data frame is expected to contain a
+// message.Message marshaled with the codec package; the server echoes the
+// same payload back in a data frame.
 func Serve(addr string) error {
 	ln, err := net.Listen("tcp", addr)
 	if err != nil {
@@ -24,6 +31,9 @@ func Serve(addr string) error {
 	}
 }
 
+// handleConn drives the lifecycle for a single connection — it reads
+// frames, decodes/encodes messages and handles simple control frame types
+// such as close and heartbeat.
 func handleConn(conn net.Conn) {
 	defer conn.Close()
 	log.Println("client connected:", conn.RemoteAddr())

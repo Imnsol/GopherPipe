@@ -1,3 +1,6 @@
+// Package bench contains micro-benchmarks used to compare serialization
+// options in the prototype (gob vs JSON for example). These benchmarks are
+// intentionally lightweight and intended to be run locally in dev or CI.
 package bench
 
 import (
@@ -24,6 +27,8 @@ func makeGobUser() GobUser {
 	return GobUser{Id: 12345, Name: "Anthony", Email: "anthony@example.com"}
 }
 
+// Benchmark_Gob_Marshal_Unmarshal measures encoding/gob round-trip
+// performance for a small user-like struct.
 func Benchmark_Gob_Marshal_Unmarshal(b *testing.B) {
 	u := makeGobUser()
 	b.ResetTimer()
@@ -40,6 +45,8 @@ func Benchmark_Gob_Marshal_Unmarshal(b *testing.B) {
 	}
 }
 
+// Benchmark_JSON_Marshal_Unmarshal measures encoding/json round-trip
+// performance for the same small struct so results can be compared.
 func Benchmark_JSON_Marshal_Unmarshal(b *testing.B) {
 	u := makeJSONUser()
 	b.ResetTimer()
@@ -57,6 +64,8 @@ func Benchmark_JSON_Marshal_Unmarshal(b *testing.B) {
 }
 
 // small sanity test driver for bench user creation
+// TestMakeUser provides a tiny sanity check used by maintainers to
+// validate the bench helper produces sensible test data.
 func TestMakeUser(t *testing.T) {
 	u := makeJSONUser()
 	if u.Id == 0 {

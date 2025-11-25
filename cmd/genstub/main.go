@@ -1,3 +1,6 @@
+// Command genstub is a tiny toy generator used for examples. It writes a
+// simple pre-defined client stub into example/chat/client_gen.go so example
+// projects can compile without a full code-generator toolchain.
 package main
 
 import (
@@ -6,7 +9,8 @@ import (
 	"os"
 )
 
-// This is a toy generator that writes a hard-coded client stub for ChatService
+// main runs the generator and writes a pre-canned client stub. The tool is
+// intentionally simple and only used for build/test examples in this repo.
 func main() {
 	out := flag.String("out", "example/chat/client_gen.go", "path to generated file")
 	flag.Parse()

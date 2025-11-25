@@ -1,5 +1,8 @@
 package main
 
+// Example chat client demonstrating use of the generated ChatClient stub
+// and a simple login flow against the example chat server.
+
 import (
 	"fmt"
 	"log"

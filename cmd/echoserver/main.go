@@ -1,5 +1,9 @@
 package main
 
+// A small echo server binary used for manual testing and examples. It
+// delegates to internal/server.Serve to exercise tcplite framing and
+// codec handling.
+
 import (
 	"fmt"
 	"log"

@@ -1,5 +1,9 @@
 package main
 
+// Simple example chat server using the gopherpipe.Server prototype. This
+// binary demonstrates how server registration and reflection-based
+// invocation can be used with a concrete implementation.
+
 import (
 	"fmt"
 	"log"

@@ -7,6 +7,9 @@ import (
 	"time"
 )
 
+// TestBuildGenstub verifies the dummy generator under cmd/genstub compiles
+// and can be listed by the go tooling. This is a lightweight build check
+// to guard example CI.
 func TestBuildGenstub(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

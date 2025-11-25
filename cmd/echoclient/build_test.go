@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+// TestBuildEchoClient is a simple build-time check for the echo client
+// command; it uses `go list` to confirm the package is buildable in CI.
 func TestBuildEchoClient(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

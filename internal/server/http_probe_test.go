@@ -8,6 +8,9 @@ import (
 	"time"
 )
 
+// TestHTTPProbeGets400 verifies that when a non-TCP_LITE client (for
+// example an HTTP probe) connects and sends ASCII HTTP, the server returns
+// a friendly HTTP 400 response instead of raw binary errors.
 func TestHTTPProbeGets400(t *testing.T) {
 	addr := "127.0.0.1:9310"
 	// start server

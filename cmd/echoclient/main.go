@@ -1,5 +1,8 @@
 package main
 
+// The echo client demonstrates how to send a single Message to the echo
+// server and read a response. It is used by examples and small manual tests.
+
 import (
 	"fmt"
 	"log"

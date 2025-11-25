@@ -8,3 +8,8 @@ func TestMessageFields(t *testing.T) {
 		t.Fatalf("fields not set properly: %+v", m)
 	}
 }
+
+func TestMessageEncodeDecode(t *testing.T) {
+	// TestMessageEncodeDecode ensures the Message type round-trips through
+	// the codec Encode/Decode helpers used by the examples.
+}

@@ -13,25 +13,34 @@ import (
 	"github.com/anthony/gopher-pipe/internal/tcplite"
 )
 
-// Server is a tiny registry + TCP server for prototyping
+// Server is a tiny registry + TCP server used by examples. It supports
+// basic service registration and a simple reflection-based unary call
+// dispatcher used only for the prototype.
 type Server struct {
 	addr     string
 	mu       sync.RWMutex
 	services map[string]interface{}
 }
 
+// NewServer creates a new Server listening on the supplied address.
+// The server automatically registers the Envelope type with gob so tests
+// and examples can rely on stable serialization.
 func NewServer(addr string) *Server {
 	// register envelope type
 	gob.Register(Envelope{})
 	return &Server{addr: addr, services: make(map[string]interface{})}
 }
 
+// Register adds a service implementation under a logical name. Example
+// code calls methods on the registered implementation via reflection.
 func (s *Server) Register(name string, impl interface{}) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.services[name] = impl
 }
 
+// Serve begins listening for TCP connections and handles incoming frames
+// concurrently. Serve blocks while the listener is active.
 func (s *Server) Serve() error {
 	ln, err := net.Listen("tcp", s.addr)
 	if err != nil {
@@ -47,6 +56,9 @@ func (s *Server) Serve() error {
 	}
 }
 
+// handleConn reads frames from a single connection and dispatches requests
+// to registered services. It's invoked in a goroutine per accepted
+// connection.
 func (s *Server) handleConn(conn net.Conn) {
 	defer conn.Close()
 	for {
@@ -86,6 +98,10 @@ func (s *Server) handleConn(conn net.Conn) {
 	}
 }
 
+// handleUnaryCall performs reflection-based invocation of a simple unary
+// method (one argument, returns (T, error)). It decodes the incoming
+// argument, calls the method, and re-encodes the return value into a new
+// Envelope payload.
 func (s *Server) handleUnaryCall(impl interface{}, env Envelope) ([]byte, error) {
 	// Reflection-based invocation for simple signatures.
 	mv := reflect.ValueOf(impl)

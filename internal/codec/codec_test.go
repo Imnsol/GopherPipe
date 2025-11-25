@@ -11,6 +11,8 @@ type testStruct struct {
 }
 
 func TestEncodeDecodeStruct(t *testing.T) {
+	// TestEncodeDecodeStruct verifies Encode/Decode round-trip produces the
+	// original struct value.
 	in := testStruct{A: 42, B: "hello"}
 	b, err := Encode(in)
 	if err != nil {

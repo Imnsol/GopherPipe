@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+// TestBuildEchoServer confirms the echo server package builds correctly and
+// is discoverable by the go tool as a sanity check for example packages.
 func TestBuildEchoServer(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
