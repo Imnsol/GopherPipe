@@ -42,6 +42,13 @@ This repository contains short design notes and a starting spec for the project.
 
 ---
 
+## About TCP_LITE 📡
+
+TCP_LITE is the lightweight transport this project uses by default. It's a tiny, length-prefixed, frame-oriented protocol designed specifically for low-latency Go-to-Go RPC: minimal header overhead (a compact fixed-size header used in common cases), strict length-prefixing so messages can be parsed without allocations, and framing that makes it straightforward to map Go channels to streams. TCP_LITE focuses on predictable performance and low GC pressure rather than general-purpose cross-language compatibility; the protocol intentionally keeps a small feature set (framing, basic options/negotiation, and optional heartbeats) and expects richer features to be layered on top when necessary. The `internal/tcplite` package contains the prototype framing, tests, and documentation used by the examples and RFC in this repository.
+
+
+---
+
 ## Example (from the design notes)
 
 This is a simplified client/server example demonstrating the channel-first, idiomatic usage pattern described in the docs.
